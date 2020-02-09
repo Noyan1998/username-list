@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import List from './List';
+import Searchbox from './Searchbox';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      usernameslist: [],
+      searchfield: ''
+    }
+  }
+
+  componentDidMount() {
+    fetch('http://www.json-generator.com/api/json/get/bVfhPDVVMy?indent=2')
+    .then(response => response.json())
+    .then(users => this.setState({ usernameslist: users }));
+  }
+
+  onSearchChange = (event) => {
+    this.setState({ searchfield: event.target.value })
+  }
+
+  render() {
+    const {usernameslist, searchfield} = this.state;
+    const filteredUsers = usernameslist.filter(username => {
+      return username.name.toLowerCase().includes(searchfield.toLowerCase());
+    })
+    return(
+      <div>
+        <h1 className='tc'>Bank's Username List</h1>
+        <Searchbox searchChange = {this.onSearchChange}/>
+        <List usernameslist = {filteredUsers} />
+      </div>
+    );
+  }
 }
 
 export default App;
