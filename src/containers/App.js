@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import List from './List';
-import Searchbox from './Searchbox';
+import List from '../components/List';
+import Searchbox from '../components/Searchbox';
 
 class App extends Component {
   constructor() {

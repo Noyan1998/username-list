@@ -1,8 +1,8 @@
 import React from 'react';
 import Username from './Username';
-import { usernameslist } from './usernameslist';
+// import { usernameslist } from './usernameslist';
 
-const List = () => {
+const List = ({ usernameslist }) => {
   const userList = usernameslist.map((user, i) =>
     <Username
       key = {i}
